@@ -1,8 +1,7 @@
-/* eslint-disable prettier/prettier */
 import { knex as setupKnex, Knex } from 'knex'
 import { env } from './env'
 
-if (!process.env.DAATABASE_URL) {
+if (!process.env.DATABASE_URL) {
   throw new Error('DATABASE_URL not found.')
 }
 
