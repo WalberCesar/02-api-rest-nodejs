@@ -92,4 +92,27 @@ describe('transactions routes', () => {
       }),
     )
   })
+
+  it('should be able to list resume of the all transactions', async () => {
+    const createTransactionResponse = await request(app.server)
+      .post('/transactions')
+      .send({
+        title: 'New transaction',
+        amount: 1000,
+        type: 'debit',
+      })
+
+    const cookies = createTransactionResponse.get('Set-cookie')
+
+    const getSummaryResponse = await request(app.server)
+      .get('/transactions/summary')
+      .set('Cookie', cookies)
+      .expect(200)
+
+    expect(getSummaryResponse.body).toEqual(
+      expect.objectContaining({
+        amount: -1000,
+      }),
+    )
+  })
 })
