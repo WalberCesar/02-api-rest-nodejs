@@ -1,18 +1,8 @@
-import fastify from 'fastify'
-import { knex } from './database'
-import cookie from '@fastify/cookie'
-import { transactionRoutes } from './routes/transactions'
-
-const app = fastify()
-
-app.register(cookie)
-app.register(transactionRoutes, {
-  prefix: 'transactions',
-})
-
+import { app } from './app'
+import { env } from './env'
 app
   .listen({
-    port: 3333,
+    port: env.PORT,
   })
   .then(() => {
     console.log('HTTP server running')
